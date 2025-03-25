@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jokes Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-yellow-200">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center w-96">
+        <h1 class="text-2xl font-bold mb-4">Random Jokes</h1>
+        <p id="joke" class="text-gray-700"></p>
+        <button onclick="fetchJoke()" class="bg-yellow-500 text-white p-2 rounded mt-4">Get New Joke</button>
+    </div>
+
+    <script>
+        async function fetchJoke() {
+            let url = "https://official-joke-api.appspot.com/random_joke";
+            try {
+                let response = await fetch(url);
+                let data = await response.json();
+                document.getElementById("joke").innerHTML = `${data.setup} <br> <strong>${data.punchline}</strong>`;
+            } catch (error) {
+                document.getElementById("joke").innerHTML = "Failed to load joke!";
+            }
+        }
+        fetchJoke();
+    </script>
+</body>
+</html>
